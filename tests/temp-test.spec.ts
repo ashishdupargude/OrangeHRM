@@ -19,13 +19,13 @@ test('temp', async ({ page, loginPage,commonUtils }) => {
     // await loginPage.loginOrangeHRM('Admin', 'admin123')
 
 
-    const commonUtilsObj = new CommonUtils()
+    //const commonUtilsObj = new CommonUtils()
     // commonUtilsObj.encryptData('admin123')
 
     const decryptedUserName = commonUtils.decryptData(process.env.USER_NAME!)
     const decryptedPassword = commonUtils.decryptData(process.env.PASSWORD!)
 
     await loginPage.gotoOrangeHRM()
-    await loginPage.loginOrangeHRM('decryptedUserName', 'decryptedPassword')
+    await loginPage.loginOrangeHRM(decryptedUserName, decryptedPassword)
 
 })
