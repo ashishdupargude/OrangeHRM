@@ -1,0 +1,54 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: temp-test.spec.ts >> temp
+- Location: tests\temp-test.spec.ts:9:5
+
+# Error details
+
+```
+Error: Pleas provide secret key while starting excution
+```
+
+# Test source
+
+```ts
+  1  | import cryptoJs from 'crypto-js'
+  2  | 
+  3  | 
+  4  | export default class CommonUtils{
+  5  | private secretkey : string
+  6  | 
+  7  | constructor (){
+  8  |   //  this.secretkey = process.env.SECRET_KEY ? process.env.SECRET_KEY : ""
+  9  |     
+  10 |   if(process.env.SECRET_KEY){
+  11 |         this.secretkey =  process.env.SECRET_KEY
+  12 |     } 
+  13 |     else{
+> 14 |         throw new Error('Pleas provide secret key while starting excution')
+     |               ^ Error: Pleas provide secret key while starting excution
+  15 |     }
+  16 | 
+  17 | }
+  18 |     public encryptData(data: string){
+  19 |         const encryptData = cryptoJs.AES.encrypt(data,this.secretkey).toString()
+  20 | 
+  21 |         console.log(encryptData)
+  22 |         return encryptData
+  23 | 
+  24 |     }
+  25 | 
+  26 |     public decrypData(encData: string){
+  27 |       const decrypData =  cryptoJs.AES.decrypData(encData, this.secretkey).toString(cryptoJs.enc.utf8)
+  28 |       return decrypData
+  29 | 
+  30 |     }
+  31 | 
+  32 | }
+```
