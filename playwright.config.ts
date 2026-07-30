@@ -10,7 +10,7 @@ import dotenv from 'dotenv'
 
 
 dotenv.config({
-  
+
   path: process.env.ENV_NAME ? `./env-files/.env.${process.env.ENV_NAME}` : `./env-files/.env.demo`
 
 })
@@ -44,18 +44,36 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'Setup',
+      testMatch: 'global.setup.ts',
+
+
+
+    },
+    {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      dependencies: ['Setup'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: './playwright/.auth.json'
+      },
+
     },
 
     // {
     //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
+    //dependencies: ['Setup'],
+    //   use: { ...devices['Desktop Firefox'] ,
+    //   storageState: './playwright/.auth.json'
+    // },
     // },
 
     // {
     //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
+    // dependencies: ['Setup'],
+    //   use: { ...devices['Desktop Safari'] ,
+    //   storageState: './playwright/.auth.json'
+    // },
     // },
 
     /* Test against mobile viewports. */
