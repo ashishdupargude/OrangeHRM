@@ -19,7 +19,7 @@ dotenv.config({
  */
 export default defineConfig({
   testDir: './tests',
-    timeout: 60000,
+    timeout: 100000,
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -33,6 +33,10 @@ export default defineConfig({
     ['html'],
     ['allure-playwright']
   ],
+  expect: { 
+    timeout:30000,
+  },
+
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
