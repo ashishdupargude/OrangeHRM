@@ -7,7 +7,9 @@ test.use({storageState:{
     origins: []
 }})
 
-test('[Login] verify that the user cannot log in with invalid password', async ({ gotoUrl, loginPage, commonUtils }) => {
+test('[Login] verify that the user cannot log in with invalid password', {
+    tag:['@UI','@UAT']
+},async ({ gotoUrl, loginPage, commonUtils }) => {
 
     const username = commonUtils.decryptData(process.env.USER_NAME!)
 
@@ -16,7 +18,13 @@ test('[Login] verify that the user cannot log in with invalid password', async (
     await expect(loginPage.userNameInput).toBeVisible()
 })
 
-test('[Login] verify that the user cannot log in with invalid username', async ({ gotoUrl, loginPage, commonUtils }) => {
+test('[Login] verify that the user cannot log in with invalid username',{
+    tag:['@UI','@UAT'],
+    annotation: {
+        type: 'Test Case Link',
+       description : 'https://github.com/ashishdupargude/OrangeHRM.git'
+    }
+}, async ({ gotoUrl, loginPage, commonUtils }) => {
 
     const coreectpassword = commonUtils.decryptData(process.env.PASSWORD!)
 
@@ -26,7 +34,9 @@ test('[Login] verify that the user cannot log in with invalid username', async (
 })
 
 
-test('[Login] verify that the user cannot log in with both invalid username and password', async ({ gotoUrl, loginPage, commonUtils }) => {
+test('[Login] verify that the user cannot log in with both invalid username and password',{
+    tag:['@UI','@DEV']
+}, async ({ gotoUrl, loginPage, commonUtils }) => {
 
    
 
