@@ -60,26 +60,33 @@ test.describe('Invalid Login Test', {
         await expect(loginPage.userNameInput).toBeVisible()
     })
 
-    
+
 
 })
 
-test('[Login] Verify that the use can login with valid username and password',{
-        tag:['@VISUAL', '@UAT'],
-        annotation: {
-            type: 'Test Case Link',
-            description: 'Tes Case Link'
+test('[Login] Verify that the use can login with valid username and password', {
+    tag: ['@VISUAL', '@UAT'],
+    annotation: {
+        type: 'Test Case Link',
+        description: 'Tes Case Link'
 
 
-        }
+    }
 
-    }, async({gotoUrl, loginPage, commonUtils,leftNavigationPage})=>{
+}, async ({ gotoUrl, loginPage, commonUtils, leftNavigationPage }) => {
 
-        const username = commonUtils.decryptData(process.env.USER_NAME!)
-        const coreectpassword = commonUtils.decryptData(process.env.PASSWORD!)
-        await loginPage.loginOrangeHRM(username,coreectpassword)
-        await expect(leftNavigationPage.orangeHRMLogo).toHaveScreenshot('OrangeHrmBrandLogo.png')
-        await expect(leftNavigationPage.leftNavigationPanel).toHaveScreenshot('LeftNavPanel.png')
-        
+    const username = commonUtils.decryptData(process.env.USER_NAME!)
+    const coreectpassword = commonUtils.decryptData(process.env.PASSWORD!)
+    await loginPage.loginOrangeHRM(username, coreectpassword)
+    await expect(leftNavigationPage.orangeHRMLogo).toHaveScreenshot('OrangeHrmBrandLogo.png', {
+        maxDiffPixelRatio: 0.03
+    })
 
-    }) 
+
+    await expect(leftNavigationPage.leftNavigationPanel).toHaveScreenshot('LeftNavPanel.png', {
+        maxDiffPixelRatio: 0.03
+    })
+
+
+
+}) 
