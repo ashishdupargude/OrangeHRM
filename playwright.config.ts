@@ -19,7 +19,7 @@ dotenv.config({
  */
 export default defineConfig({
   testDir: './tests',
-    timeout: 100000,
+  timeout: 100000,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -33,8 +33,8 @@ export default defineConfig({
     ['html'],
     ['allure-playwright']
   ],
-  expect: { 
-    timeout:30000,
+  expect: {
+    timeout: 30000,
   },
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -43,14 +43,16 @@ export default defineConfig({
     // baseURL: 'http://localhost:3000',
     //baseURL : "https://restful-booker.herokuapp.com/booking",
 
+    baseURL: process.env.API_BASE_URL,
+    
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure',
     video: 'retain-on-failure',
     screenshot: 'only-on-failure',
-     
+
     navigationTimeout: 60000,
 
-     
+
   },
 
   /* Configure projects for major browsers */
@@ -70,6 +72,10 @@ export default defineConfig({
         storageState: './playwright/.auth.json'
       },
 
+    },
+    {
+      name: 'apiTest',
+      testDir: './tests/api-tests'
     },
 
     // {
