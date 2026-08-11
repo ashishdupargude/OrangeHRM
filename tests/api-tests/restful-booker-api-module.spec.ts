@@ -11,7 +11,7 @@ test("API Testing", async({request}) => {
 
 })
 test("API test 2", async({request}) =>{
-    const bookingDetails = await request.get("https://restful-booker.herokuapp.com/booking/1")
+    const bookingDetails = await request.get("https://restful-booker.herokuapp.com/booking/2")
     console.log(await bookingDetails.json())
 })
 
