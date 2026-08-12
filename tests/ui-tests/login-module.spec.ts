@@ -1,6 +1,6 @@
 import { test, expect } from '../../fixtures/hooks-fixture'
 
-import loginModuleData from '../../data/login-module-data.json'
+import loginModuleData from '../../data//ui-data/login-module-data.json'
 import process from 'node:process'
 import { LeftNavigationPage } from '../../pages/LeftNavigationPage'
 
