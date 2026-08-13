@@ -73,3 +73,34 @@ test("ID -10 -[Restful-Booker > Booking ] Verify that the user is able to create
 
 
 })
+
+test("ID -11 - [Restful-Booker > Booking] verify that the user is able to update existing booking useing Put API and receive valid response.", {
+    tag: ['@API', '@UAT'],
+    annotation: {
+        type: 'Test Case Link',
+        description: 'TestCasrLink'
+    }
+
+}, async ({ request }) => {
+
+    const updatedbookingResp =await request.put(`https://restful-booker.herokuapp.com/booking/${restfulApiData.booking_id3}`,{
+        headers: {
+
+           Authorization : "Basic YWRtaW46cGFzc3dvcmQxMjM="
+        },
+            data:restfulApiData.update_booking  
+        
+    })
+
+   const updateBookingJsonResp = await updatedbookingResp.json()
+   console.log(updateBookingJsonResp)
+
+   expect(updatedbookingResp.status()).toBe(200)
+   expect(updateBookingJsonResp).toMatchObject(restfulApiData.update_booking)
+
+
+
+
+    //const updateBookingResp = await request.put(`https://restful-booker.herokuapp.com/booking/:id/${restfulApiData.update_booking}`)
+
+})
