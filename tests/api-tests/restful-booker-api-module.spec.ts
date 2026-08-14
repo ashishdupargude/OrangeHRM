@@ -81,26 +81,28 @@ test("ID -11 - [Restful-Booker > Booking] verify that the user is able to update
         description: 'TestCasrLink'
     }
 
-}, async ({ request }) => {
+}, async ({ request, commonAPIUtils }) => {
 
-    const updatedbookingResp =await request.put(`https://restful-booker.herokuapp.com/booking/${restfulApiData.booking_id3}`,{
+    const tokenValue = await commonAPIUtils.createToken()
+
+    const updatedbookingResp = await request.put(`https://restful-booker.herokuapp.com/booking/${restfulApiData.booking_id3}`, {
         headers: {
 
-           Authorization : "Basic YWRtaW46cGFzc3dvcmQxMjM="
+            //Authorization: "Basic YWRtaW46cGFzc3dvcmQxMjM="
+
+            Cookie : `token=${tokenValue}`
+
         },
-            data:restfulApiData.update_booking  
         
+        data: restfulApiData.update_booking
+
     })
 
-   const updateBookingJsonResp = await updatedbookingResp.json()
-   console.log(updateBookingJsonResp)
+    const updateBookingJsonResp = await updatedbookingResp.json()
+    console.log(updateBookingJsonResp)
 
-   expect(updatedbookingResp.status()).toBe(200)
-   expect(updateBookingJsonResp).toMatchObject(restfulApiData.update_booking)
-
-
-
-
+    expect(updatedbookingResp.status()).toBe(200)
+    expect(updateBookingJsonResp).toMatchObject(restfulApiData.update_booking)
     //const updateBookingResp = await request.put(`https://restful-booker.herokuapp.com/booking/:id/${restfulApiData.update_booking}`)
 
 })
