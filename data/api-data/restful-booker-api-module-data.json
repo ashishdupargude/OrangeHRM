@@ -28,5 +28,11 @@
     },
     "additionalneeds" : "Breakfast"
 
+    },
+
+    "update_partial_booking": {
+
+        "firstname" : "Ash",
+    "lastname" : "Dupargude"
     }
 }

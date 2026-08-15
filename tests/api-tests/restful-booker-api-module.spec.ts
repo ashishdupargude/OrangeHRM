@@ -90,10 +90,10 @@ test("ID -11 - [Restful-Booker > Booking] verify that the user is able to update
 
             //Authorization: "Basic YWRtaW46cGFzc3dvcmQxMjM="
 
-            Cookie : `token=${tokenValue}`
+            Cookie: `token=${tokenValue}`
 
         },
-        
+
         data: restfulApiData.update_booking
 
     })
@@ -106,3 +106,36 @@ test("ID -11 - [Restful-Booker > Booking] verify that the user is able to update
     //const updateBookingResp = await request.put(`https://restful-booker.herokuapp.com/booking/:id/${restfulApiData.update_booking}`)
 
 })
+
+test('ID -12 - [Restful-Booker > Booking] Verify that the user is able to partially update existing booking using PATCH API and receive valid respons', {
+    tag: ['@API', '@UAT'],
+    annotation: {
+        type: 'Test Case Link',
+        description: 'TestCasrLink'
+    }
+
+}, async ({ request, commonAPIUtils }) => {
+
+    const apiToken = await commonAPIUtils.createToken()
+
+    const partialUpdateBookingResp = await request.patch(`https://restful-booker.herokuapp.com/booking/${restfulApiData.booking_id3}`, {
+
+        headers: {
+
+            Cookie: `token=${apiToken}`
+
+        },
+
+        data: restfulApiData.update_partial_booking
+
+    })
+
+    console.log(partialUpdateBookingResp)
+    const partialUpdateBookingJsonResp = await partialUpdateBookingResp.json()
+    console.log(partialUpdateBookingJsonResp)
+
+    expect(partialUpdateBookingResp.status()).toBe(200)
+    expect(partialUpdateBookingJsonResp.firstname).toMatch(restfulApiData.update_partial_booking.firstname)
+    expect(partialUpdateBookingJsonResp.lastname).toMatch(restfulApiData.update_partial_booking.lastname)
+
+}) 
