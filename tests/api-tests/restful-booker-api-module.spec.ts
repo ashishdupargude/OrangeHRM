@@ -2,6 +2,7 @@
 import { test, expect } from '../../fixtures/hooks-fixture'
 import restfulApiData from '../../data/api-data/restful-booker-api-module-data.json'
 import { request } from 'node:http'
+import CommonApiUtils from '../../utils/CommonApiUtils'
 test("API Testing", async ({ request }) => {
 
 
@@ -138,4 +139,75 @@ test('ID -12 - [Restful-Booker > Booking] Verify that the user is able to partia
     expect(partialUpdateBookingJsonResp.firstname).toMatch(restfulApiData.update_partial_booking.firstname)
     expect(partialUpdateBookingJsonResp.lastname).toMatch(restfulApiData.update_partial_booking.lastname)
 
-}) 
+})
+
+// test('ID -13 - [Restful - Booker > Booking] Verify that the user is able to delet existing booking using Delet API and recevie valid response.', {
+
+//     tag: ['@API', '@UAT'],
+//     annotation: {
+//         type: 'Test Case Link',
+//         description: 'TestCasrLink'
+//     }
+// }, async ({ request, commonAPIUtils }) => {
+
+    
+//     const apiToken = await commonAPIUtils.createToken()
+
+//     const deleteBookingResp = await request.delete(`https://restful-booker.herokuapp.com/booking/${restfulApiData.booking_id4}`, {
+//         headers: {
+
+//             Cookie: `token=${apiToken}`
+//         }
+
+//     })
+
+//     expect(deleteBookingResp.status()).toBe(201)
+//     expect(deleteBookingResp.statusText()).toBe("Created")
+//     const getbookingresp = await request.get(`https://restful-booker.herokuapp.com/booking/${restfulApiData.booking_id4}`)
+
+//     expect(getbookingresp.status()).toBe(404)
+//     expect(getbookingresp.statusText()).toBe('Not Found')
+
+// })
+
+test('ID -13 - Delete booking', {
+    tag: ['@API', '@UAT'],
+}, async ({ request, commonAPIUtils }) => {
+
+    // 1. Create a fresh booking
+    const createBookingResp = await request.post(
+        'https://restful-booker.herokuapp.com/booking',
+        {
+            data: restfulApiData.create_booking
+        }
+    )
+
+    expect(createBookingResp.status()).toBe(200)
+
+    const createBookingJson = await createBookingResp.json()
+    const bookingId = createBookingJson.bookingid
+
+    // 2. Create authentication token
+    const apiToken = await commonAPIUtils.createToken()
+
+    // 3. Delete the newly created booking
+    const deleteBookingResp = await request.delete(
+        `https://restful-booker.herokuapp.com/booking/${bookingId}`,
+        {
+            headers: {
+                Cookie: `token=${apiToken}`
+            }
+        }
+    )
+
+    expect(deleteBookingResp.status()).toBe(201)
+    expect(deleteBookingResp.statusText()).toBe('Created')
+
+    // 4. Verify booking is deleted
+    const getBookingResp = await request.get(
+        `https://restful-booker.herokuapp.com/booking/${bookingId}`
+    )
+
+    expect(getBookingResp.status()).toBe(404)
+    expect(getBookingResp.statusText()).toBe('Not Found')
+})
