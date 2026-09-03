@@ -30,7 +30,7 @@ export class AdminPage {
     }
     async selectUserRole(role: string) {
         await this.userRoleDropdown.click()
-        await this.page.getByRole('option', { name: role, exact: true }).click()
+        await this.page.getByRole('option', { name: role, exact: true })
     }
     
     async empName(){
