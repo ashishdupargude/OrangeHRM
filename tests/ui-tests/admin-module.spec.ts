@@ -18,4 +18,6 @@ test('[Admin] Verify that new user is created under Admin module', {
 
     await adminPage.selectUserRole('Admin')
 
+    await adminPage.empName()
+
 })
