@@ -9,6 +9,7 @@ export class AdminPage {
     readonly employeeName: Locator
 
     readonly userRoleDropdown: Locator
+    readonly statusDropdown: Locator
 
     constructor(page: Page) {
 
@@ -18,6 +19,7 @@ export class AdminPage {
         this.addButton = page.getByRole('button', { name: 'Add' })
         this.userRoleDropdown = page.locator('.oxd-input-group').filter({ hasText: 'User Role' }).locator('.oxd-select-text')
         this.employeeName = page.getByPlaceholder('Type for hints...')
+        this.statusDropdown = page.locator('.oxd-input-group').filter({ hasText: 'Status' }).locator('.oxd-select-text')
 
 
 
@@ -32,13 +34,19 @@ export class AdminPage {
         await this.userRoleDropdown.click()
         await this.page.getByRole('option', { name: role, exact: true })
     }
-    
-    async empName(){
+
+    async empName() {
 
         await this.employeeName.click()
         await this.employeeName.fill('AD')
 
-        await this.page.getByText('AD',{ exact: true}).click()
-        
+        this.page.getByText('AD', { exact: true })
+
     }
+
+    async selectStatus(status: string) {
+        await this.statusDropdown.click()
+        await this.page.getByRole('option', { name: status }).click()
+    }
+
 }

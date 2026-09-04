@@ -14,10 +14,11 @@ test('[Admin] Verify that new user is created under Admin module', {
     // await page.getByRole('button',{name:'Login'}).click()
 
     const adminPage = new AdminPage(page)
-    await adminPage.addAdmin() 
+    await adminPage.addAdmin()
 
     await adminPage.selectUserRole('Admin')
 
     await adminPage.empName()
 
+    await adminPage.selectStatus('Enabled')
 })
