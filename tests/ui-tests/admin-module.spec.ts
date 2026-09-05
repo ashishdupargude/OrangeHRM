@@ -21,4 +21,6 @@ test('[Admin] Verify that new user is created under Admin module', {
     await adminPage.empName()
 
     await adminPage.selectStatus('Enabled')
+    await adminPage.empName()
+
 })
