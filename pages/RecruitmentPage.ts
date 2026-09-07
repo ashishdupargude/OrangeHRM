@@ -29,7 +29,21 @@ async openRecruitment(){
 }
 async selectJobTitle(jobTitle: string) {
     await this.jobTitelDropdown.click()
-    await this.page.getByText(jobTitle, { exact: true }).click()
+    //await this.page.getByText(jobTitle, { exact: true }).click()
+   //await this.page.locator('.oxd-select-option').locator('span').filter({ hasText: jobTitle }).click()
+   // await this.page.locator('.oxd-select-option').filter({hasText: jobTitle}).click()
+
+   const options = this.page.locator('.oxd-select-option')
+
+    console.log('Option count:', await options.count())
+    console.log('Option text:', await options.allTextContents())
+
+    const jobOption = options.filter({ hasText: jobTitle }).first()
+
+    console.log('Job option count:', await options.filter({ hasText: jobTitle }).count())
+
+    await jobOption.click()
+
 }
 
 }
