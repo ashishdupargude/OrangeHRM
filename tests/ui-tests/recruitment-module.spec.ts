@@ -12,5 +12,5 @@ test('[Recruitment] Verify candidate search filters',{
   const recruitmentPage = new RecruitmentPage(page)
 
     await recruitmentPage.openRecruitment()
-   // await recruitmentPage.selectJobTitle('Automation Tester')
+  await recruitmentPage.selectJobTitle('Automation Tester')
 })
