@@ -15,4 +15,5 @@ test('[Recruitment] Verify candidate search filters',{
   await recruitmentPage.selectJobTitle('Automation Tester')
   await recruitmentPage.selectVacancy('Account Assistant')
   await recruitmentPage.selectHiringManager('Rahul Patil')
+  await recruitmentPage.selectStatus('Application Initiated')
 })

@@ -7,7 +7,7 @@ export class RecruitmentPage {
     readonly jobTitleDropdown: Locator
     readonly vacancyDropDown: Locator
     readonly hiringManagerDropDown: Locator
-    // readonly stateDropdown: Locator
+    readonly stateDropdown: Locator
     // readonly condidateName: Locator
     // readonly keywords: Locator
     // readonly dateOfApplicationFrom: Locator
@@ -20,8 +20,9 @@ export class RecruitmentPage {
         this.recruitmentButton = page.getByRole('link', { name: 'Recruitment' })
         //  this.jobTitelDropdown = page.locator('.oxd-input-group').filter({ hasText: 'Job Title' }).locator('.oxd-select-text')
         this.vacancyDropDown = page.locator('.oxd-input-group').filter({ hasText: 'Vacancy' }).locator('.oxd-select-text')
-        this.hiringManagerDropDown = page.locator('.oxd-input-group').filter({hasText: 'Hiring Manager'}).locator('.oxd-select-text-input')
-
+        this.hiringManagerDropDown = page.locator('.oxd-input-group').filter({ hasText: 'Hiring Manager' }).locator('.oxd-select-text-input')
+        this.stateDropdown = page.locator('.oxd-input-group').filter({ hasText: 'Method of Application' })
+            .locator('.oxd-select-text')
 
 
     }
@@ -55,9 +56,14 @@ export class RecruitmentPage {
         await this.page.getByRole('option', { name: vacancy }).click()
 
     }
-async selectHiringManager(HiringManager:string){
-    await this.hiringManagerDropDown.click()
-    await this.page.getByRole('option', {name: HiringManager}).click()
+    async selectHiringManager(HiringManager: string) {
+        await this.hiringManagerDropDown.click()
+        await this.page.getByRole('option', { name: HiringManager }).click()
 
-}
+    }
+    async selectStatus(method: string) {
+        await this.stateDropdown.click()
+        await this.page.getByRole('listbox').getByText(method, { exact: true }).click()
+    }
+
 }
